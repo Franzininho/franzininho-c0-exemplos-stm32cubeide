@@ -1,0 +1,10 @@
+17:35:06 **** Incremental Build of configuration Debug for project 00-exemplo-template ****
+make -j4 all 
+arm-none-eabi-size   00-exemplo-template.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8912	     20	   1716	  10648	   2998	00-exemplo-template.elf
+Finished building: default.size.stdout
+ 
+
+17:35:07 Build Finished. 0 errors, 0 warnings. (took 846ms)
+
