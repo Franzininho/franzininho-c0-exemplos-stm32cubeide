@@ -103,7 +103,7 @@ int main(void)
 	 i++;
 	 if(i>=10){
 		 HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);	//inverte LED1
-		 HAL_UART_Transmit(&huart1,msg, sizeof(msg),100); //envia mensagem na serial
+		 HAL_UART_Transmit(&huart1,msg, sizeof(msg)-1,100); //envia mensagem na serial
 	 }
 	 if(!HAL_GPIO_ReadPin(Button_GPIO_Port, Button_Pin)) //se botão pressionado
 		 HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);	//inverte LED2
