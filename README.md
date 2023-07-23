@@ -11,7 +11,7 @@ Fique a vontade para colaborar na construção dos materiais e códigos. Outros 
 | 02 - Exemplo Blinky Int  | 🔵      | Piscando o LED usando interrupção de timer                                                                    |
 | 03 - Exemplo Hello World | 🔵      | Transmitindo mensagem serial pela UART                                                                        |
 | 04 - Exemplo input       | 🔵      | Leitura de um botão e acionamento de um LED                                                                   |
-| 05 - Exemplo debounce    | 🔴      | Leitura de um botão com realização de debounce                                                                |
+| 05 - Exemplo debounce    | 🔵      | Leitura de um botão com realização de debounce periódico (sem travamento do código)                           |
 | 06 - Exemplo ADC         | 🔴      | Conversão A/D com DMA e base de tempo por timer                                                               |
 | 07 - Exemplo PWM         | 🔴      | Geração de PWM                                                                                                |
 | 08 - Exemplo Dimmer      | 🔴      | Controlando o brilho do LED por um potenciômetro (ADC e PWM)                                                  |
