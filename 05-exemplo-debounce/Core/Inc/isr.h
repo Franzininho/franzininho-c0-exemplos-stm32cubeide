@@ -11,7 +11,7 @@
 #include "gpio.h"
 #include "tim.h"
 
-#define	DEBOUNCE_STABLE_PERIOD	20					// Período para debounce em ms
+#define	DEBOUNCE_STABLE_PERIOD	10					// Período para debounce em ms
 
 extern volatile uint8_t currentButton;				// Variáveis para armazenar estado do botão
 extern volatile uint8_t previousButton;				//

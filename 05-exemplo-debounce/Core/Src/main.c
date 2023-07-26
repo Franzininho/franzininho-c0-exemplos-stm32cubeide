@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -69,6 +70,9 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	const uint8_t msg_pressed [] = "Botao pressionado! \r\n";
+	const uint8_t msg_released[] = "Botao solto! \r\n";
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -90,6 +94,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM17_Init();
+  MX_USART1_UART_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
@@ -105,13 +110,14 @@ int main(void)
 	  if (debouncedButtonPressed)	// Quando botão é pressionado...
 	  {
 		  debouncedButtonPressed = 0;
-		  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);	// Acende LED2
+		  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);	// Altera estado do LED2
+		  HAL_UART_Transmit(&huart1, msg_pressed, (sizeof(msg_pressed)-1), 1000);	// Transmite mensagem serial pela UART
 	  }
 
 	  if (debouncedButtonReleased)	// Quando botão é solto...
 	  {
 		  debouncedButtonReleased = 0;
-		  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);	// Apaga LED2
+		  HAL_UART_Transmit(&huart1, msg_released, (sizeof(msg_released)-1), 1000);	// Transmite mensagem serial pela UART
 	  }
 
     /* USER CODE END WHILE */
