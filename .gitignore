@@ -50,3 +50,12 @@ release
 *.su
 *.idb
 *.pdb
+
+
+#vscode
+.vs
+.vscode
+vcpkg-configuration.json
+CMakePresets.json
+CMakeLists.txt
+cmake/

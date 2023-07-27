@@ -99,9 +99,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	 HAL_Delay(100);			//delay 1 seg
+	 HAL_Delay(100);			//delay 100 ms
 	 i++;
 	 if(i>=10){
+     i= 0; //reinicia contador
 		 HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);	//inverte LED1
 		 HAL_UART_Transmit(&huart1,msg, sizeof(msg)-1,100); //envia mensagem na serial
 	 }
