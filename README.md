@@ -12,7 +12,7 @@ Fique a vontade para colaborar na construção dos materiais e códigos. Outros 
 | 03 - Exemplo Hello World | 🟢      | Transmitindo mensagem serial pela UART                                                                        |
 | 04 - Exemplo input       | 🟢      | Leitura de um botão e acionamento de um LED                                                                   |
 | 05 - Exemplo debounce    | 🟢      | Leitura de um botão com realização de debounce periódico (sem travamento do código)                           |
-| 06 - Exemplo ADC         | 🟡      | Conversão A/D com DMA e base de tempo por timer                                                               |
+| 06 - Exemplo ADC         | 🔵      | Conversão A/D com DMA e base de tempo por timer                                                               |
 | 07 - Exemplo PWM         | 🔴      | Geração de PWM                                                                                                |
 | 08 - Exemplo Dimmer      | 🔴      | Controlando o brilho do LED por um potenciômetro (ADC e PWM)                                                  |
 | 09 - Exemplo Servo Motor | 🔴      | Controlando a posição de um servo motor por um potenciômetro (ADC e PWM)                                      |
