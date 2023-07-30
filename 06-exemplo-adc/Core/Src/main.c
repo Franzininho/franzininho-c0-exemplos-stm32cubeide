@@ -27,6 +27,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include <stdio.h>
+
+#include "string.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +51,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+volatile uint8_t flag_ADC_EOC = 0;
 
 /* USER CODE END PV */
 
@@ -69,6 +75,12 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	uint16_t adc_buffer[1];
+	uint16_t adc_mV[1];
+
+	uint8_t uart_buffer[20];
+
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -85,15 +97,21 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+  MX_DMA_Init();
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_ADC1_Init();
   MX_TIM3_Init();
+  MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_ADCEx_Calibration_Start(&hadc1);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, 1);
+  HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 2 */
 
@@ -101,6 +119,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  if (flag_ADC_EOC)
+	  {
+		  adc_mV[0] = 3300 * adc_buffer[0] / 4096;
+
+		  if (adc_mV[0] >= 1500)
+		  {
+			  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+		  }
+		  else
+		  {
+			  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+		  }
+
+		  sprintf((char *)uart_buffer, "ADC: %4d mV \r\n", adc_mV[0]);
+		  HAL_UART_Transmit(&huart1, uart_buffer, strlen((char *)uart_buffer), 50);
+
+		  flag_ADC_EOC = 0;
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -145,6 +183,12 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{	// Conversions have finished
+	flag_ADC_EOC = 1;
+	HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+}
 
 /* USER CODE END 4 */
 
