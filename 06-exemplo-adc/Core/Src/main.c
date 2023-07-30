@@ -27,6 +27,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include <stdio.h>	// Biblioteca necessária para utilização da função "sprintf()"
+#include <string.h>	// Biblioteca necessária para utilização da função "strlen()"
+
+#include "adconverter.h"	// Biblioteca auxiliar para ADC
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 
 /* USER CODE END PV */
 
@@ -69,6 +75,10 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	uint8_t uart_buffer[40];// Vetor para transmissão serial
+
+	uint8_t i = 0;			// Variável auxiliar para contagens
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -85,15 +95,21 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+  //MX_DMA_Init();
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
+  MX_DMA_Init();															// Imprescindível que o DMA seja inicializado antes dos demais periféricos que o utilizam
   MX_TIM3_Init();
+  MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_ADCEx_Calibration_Start(&hadc1);										// Rotina de calibração do ADC
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, ADC_ACTIVE_CHANNELS);	// Inicia operação do ADC com DMA para canais ativos
+  HAL_TIM_Base_Start_IT(&htim3);											// Inicia base de tempo para coversões A/D (100 ms)
 
   /* USER CODE END 2 */
 
@@ -101,6 +117,31 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  if (flag_ADC_EOC)	// Faz tratamento dos dados sempre que um
+	  {					// conjunto de conversões do ADC é realizado
+
+		  for (i = 0; i < ADC_ACTIVE_CHANNELS; i++)	// Conversão das leituras do ADC em tensão (mV)
+		  {
+			  adc_mV[i] = 3300 * adc_buffer[i] / 4096;
+		  }
+
+		  if (adc_mV[0] >= 1500)					// Acende LED2 se tensão no canal 1 é maior que 1.5V
+		  {
+			  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 1);
+		  }
+		  else
+		  {
+			  HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, 0);
+		  }
+
+		  // Envia dados das leituras pela serial:
+		  sprintf((char *)uart_buffer, "ADC[0]: %4d mV ; ADC[1]: %4d mV \r\n", adc_mV[0], adc_mV[1]);
+		  HAL_UART_Transmit(&huart1, uart_buffer, strlen((char *)uart_buffer), 50);
+
+		  flag_ADC_EOC = 0;	// Reseta flag para tratamento das conversões do ADC
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
