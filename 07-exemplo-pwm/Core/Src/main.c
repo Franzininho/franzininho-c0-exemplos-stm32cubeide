@@ -66,6 +66,10 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	uint16_t LED1_pulse, LED2_pulse;	// Variáveis para armazenar larguras de pulsos para LED1 (PB6, TIM1CH3) e LED2 (PB7, TIM1CH4)
+
+	uint16_t i;							// Variável auxiliar para contagens
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -89,12 +93,39 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);	// Inicia Timer 1 para geração de PWM no canais 3 (PB6, LED1)
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);	// Inicia Timer 1 para geração de PWM no canais 4 (PB7, LED2)
+
+  // PWM configurado para largura de pulso de 0 a 1000
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	for (i = 0; i<1000; i++)
+	{
+		LED1_pulse = i;				// Aumenta gradualmente largura de pulso no LED1
+		LED2_pulse = 1000 - i;;		// Diminui gradualmente largura de pulso no LED2
+
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, LED1_pulse);	// Atualiza largura de pulso no LED1
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, LED2_pulse);	// Atualiza largura de pulso no LED2
+
+		HAL_Delay(1);				// Delay de 1ms
+	}
+
+	for (i = 1000; i>0; i--)		// Repete algoritmo anterior, porém de maneira inversa
+	{
+		LED1_pulse = i;
+		LED2_pulse = 1000 - i;
+
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, LED1_pulse);
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, LED2_pulse);
+
+		HAL_Delay(1);
+	}
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
