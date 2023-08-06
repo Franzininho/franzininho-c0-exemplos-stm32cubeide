@@ -23,3 +23,9 @@ Foram configurados os seguintes periféricos:
 ## Software  
   
 STM32CubeIDE Version: 1.13.0
+
+## Teste  
+  
+![Franzininho C0 - Exemplo ADC](./img/board.gif)  
+  
+![Leituras no console via UART](./img/console.gif)  
