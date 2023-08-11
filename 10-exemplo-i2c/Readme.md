@@ -25,4 +25,5 @@ STM32CubeIDE Version: 1.13.0
   
 ![Envio de dados pela UART](./img/console.PNG)  
   
+Teste com sensor desconectado:  
 ![Falha na comunicação com o sensor](./img/console_error.PNG)  
