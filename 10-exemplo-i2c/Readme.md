@@ -23,6 +23,6 @@ STM32CubeIDE Version: 1.13.0
   
 ![Franzininho C0 - Exemplo I2C](./img/board.jpg)  
   
-![Envio de dados pela UART](./img/console.png)  
+![Envio de dados pela UART](./img/console.PNG)  
   
-![Falha na comunicação com o sensor](./img/console_error.png)  
+![Falha na comunicação com o sensor](./img/console_error.PNG)  
