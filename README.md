@@ -17,7 +17,7 @@ Fique a vontade para colaborar na construção dos materiais e códigos. Outros 
 | 08 - Exemplo Dimmer      | 🔴      | Controlando o brilho do LED por um potenciômetro (ADC e PWM)                                                  |
 | 09 - Exemplo Servo Motor | 🔴      | Controlando a posição de um servo motor por um potenciômetro (ADC e PWM)                                      |
 | 10 - Exemplo I2C         | 🟡      | Controlando algum periférico via I2C (por exemplo, memória externa, sensor de temperatura, RTC, display, ...) |
-| 11 - Exemplo SPI         | 🔴      | Controlando aglum periférico via SPI (por exemplo: memória externa, cartão SD, display, ...)                  |
+| 11 - Exemplo SPI         | 🟡      | Controlando aglum periférico via SPI (por exemplo: memória externa, cartão SD, display, ...)                  |
 | 12 - Exemplo ...         | 🔴      |                                                                                                               |
 
 ### Legenda:
