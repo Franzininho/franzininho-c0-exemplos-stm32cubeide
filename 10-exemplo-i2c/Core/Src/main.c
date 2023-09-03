@@ -28,7 +28,7 @@
 #include <stdio.h>	// Biblioteca necessária para utilização da função "sprintf()"
 #include <string.h>	// Biblioteca necessária para utilização da função "strlen()"
 
-#include "htu21d.h"
+#include "htu21d.h"	// Biblioteca do sensor de temperatura e humidade
 
 /* USER CODE END Includes */
 

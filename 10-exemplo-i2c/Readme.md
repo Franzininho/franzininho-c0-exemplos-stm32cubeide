@@ -6,15 +6,15 @@ Durante inicialização, caso haja falha na comunicação com o sensor, apresent
 
 Foram configurados os seguintes periféricos:  
 - GPIO:
-	- PB6 - Output (LED1);
+	- PB6 - Output (LED1)  
 - I2C:
-	- I2C1, 400 kHz
-	- PB7 - I2C1 SCL;
-	- PC14 - I2C1 SDA
+	- I2C1, 400 kHz   
+	- PB7 - I2C1 SCL  
+	- PC14 - I2C1 SDA  
 - USART1:
-	- PA9 - TX;
-	- PA10 - RX 
-- Clock do sistema: interno 48 MHz  
+	- PA9 - TX  
+	- PA10 - RX  
+- Clock do sistema: interno 48 MHz    
   
 ![Arquivo IOC](./img/ioc.PNG)  
   

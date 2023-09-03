@@ -11,16 +11,16 @@ No código há 2 imagens convertidas, mas apenas 1 é utilizada, conforme comand
   
 Foram configurados os seguintes periféricos:  
 - GPIO:
-	- PA3 - Output (ST7899_RST);
-	- PA4 - Output (ST7899_DC);
-	- PB6 - Output (LED1);
+	- PA3 - Output (ST7899_RST)  
+	- PA4 - Output (ST7899_DC)  
+	- PB6 - Output (LED1)  
 - SPI:
-	- SPI1, 12 MHz;
-	- PA7 - SPI1_MOSI;
-	- PA8 - SPI1_MISO;
+	- SPI1, 12 MHz  
+	- PA7 - SPI1_MOSI  
+	- PA8 - SPI1_MISO  
 - Clock do sistema: interno 48 MHz  
   
-![Arquivo IOC](./img/ioc.PNG)  
+![Arquivo IOC](./img/ioc.png)  
   
 ## Software  
   
@@ -40,12 +40,12 @@ STM32CubeIDE Version: 1.13.1
 
 ### Biblioteca para o controlador ST7789
 
-Foi utilizada a biblioteca [ST7789-STM32](https://github.com/Floyd-Fish/ST7789-STM32) elaborada por [FloydFish](https://github.com/Floyd-Fish).  
+Foi utilizada a biblioteca [ST7789-STM32](https://github.com/Floyd-Fish/ST7789-STM32) elaborada por [Floyd-Fish](https://github.com/Floyd-Fish).  
 É importante manter a nomenclatura dos pinos de controle consistente com a biblioteca, para que não seja necessário alterar o código no arquivo ST7789.h.  
 
 ### Ferramenta para gerar código a partir das imagens
 
-Foi utilizado o aplicativo [lcd-image-converter](https://sourceforge.net/projects/lcd-image-converter/) para gerar o vetor para as imagens incluídas neste exemplo.  
+Foi utilizado o aplicativo [LCD Image Converter](https://sourceforge.net/projects/lcd-image-converter/) para gerar o vetor de dados para as imagens incluídas neste exemplo.  
 
 A configuração utilizada foi a seguinte:    
 - Abrir o aplicativo e selecionar File -> Open...  
