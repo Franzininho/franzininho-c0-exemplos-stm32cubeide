@@ -18,11 +18,15 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "isr.h"
+#include "keyboard.h"
 
 /* USER CODE END Includes */
 
@@ -66,6 +70,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	char uart_buffer[40];
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -87,7 +93,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);	// Desabilita interrupções para iniciar standby da varredura do teclado
+
+  HAL_GPIO_WritePin(KB_C1_GPIO_Port, KB_C1_Pin | KB_C2_Pin | KB_C3_Pin, 1);	// Deixa todas as colunas em HIGH, para permitir detecção por interrupção
+
+  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);	// Reabilita interrupções para permitir detecção de tecla pressionada
 
   /* USER CODE END 2 */
 
@@ -95,6 +108,33 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (debouncedButtonPressed == 1)
+		{
+			if (currentButton <= 0x09)		// 0 a 9 corresponde aos caracteres ASCII 30 a 39
+			{
+				uart_buffer[0] = currentButton + 0x30;
+				uart_buffer[1] = ' ';
+			}
+			else if (currentButton == 0x0A)	// *
+			{
+				uart_buffer[0] = '*';
+				uart_buffer[1] = ' ';
+			}
+			else if (currentButton == 0x0B)	// #
+			{
+				uart_buffer[0] = '#';
+				uart_buffer[1] = ' ';
+			}
+			else if (currentButton == (KB_DEFAULT | BUTTON_MASK))	// BUTTON
+			{
+				uart_buffer[0] = '\r';
+				uart_buffer[1] = '\n';
+			}
+
+			HAL_UART_Transmit(&huart1, (uint8_t *)uart_buffer, 2, 100);	// Envia pela UART o caractere pressionado no teclado
+
+			debouncedButtonPressed = 0;		// Reseta flag para permitir próxima detecção
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -18,7 +18,7 @@ Fique a vontade para colaborar na construção dos materiais e códigos. Outros 
 | 09 - Exemplo Servo Motor          | 🔴      | Controlando a posição de um servo motor por um potenciômetro (ADC e PWM)                                      |
 | 10 - Exemplo I2C                  | 🔵      | Controlando um sensor de temperatura e umidade via I2C                                                        |
 | 11 - Exemplo SPI                  | 🔵      | Controlando um display LCD colorido via SPI                                                                   |
-| 12 - Exemplo Teclado Matricial    | 🟡      | Fazendo a leitura de um teclado matricial com debounce periódico (sem travamento do código)                   |
+| 12 - Exemplo Teclado Matricial    | 🔵      | Fazendo a leitura de um teclado matricial com debounce periódico (sem travamento do código)                   |
 | 13 - Exemplo ...                  | 🔴      | ...                                                                                                           |
 
 ### Legenda:
