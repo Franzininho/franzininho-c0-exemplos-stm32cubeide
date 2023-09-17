@@ -8,6 +8,8 @@
 #ifndef INC_ISR_H_
 #define INC_ISR_H_
 
-extern uint32_t counter;
+#include "tim.h"
+
+#include "encoder.h"
 
 #endif /* INC_ISR_H_ */

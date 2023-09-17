@@ -8,15 +8,12 @@
 #ifndef SRC_ISR_C_
 #define SRC_ISR_C_
 
-#include "tim.h"
-
 #include "isr.h"
-
-uint32_t counter = 0;
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-	counter = __HAL_TIM_GET_COUNTER(htim);
+	encoder_counter = __HAL_TIM_GET_COUNTER(htim);
+	flag_encoder_changed = 1;
 }
 
 #endif /* SRC_ISR_C_ */
