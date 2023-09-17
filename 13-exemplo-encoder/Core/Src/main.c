@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "encoder.h"
 #include "isr.h"
 
 /* USER CODE END Includes */
@@ -72,8 +73,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-	volatile uint8_t prev_counter = counter;
-	uint8_t output = 0;
+	int8_t output = 0;
 
 	char uart_buffer[40];
 
@@ -101,7 +101,7 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);	// Inicia leitura do encoder por interrupção do timer
 
   /* USER CODE END 2 */
 
@@ -109,23 +109,59 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (flag_encoder_changed)
+	  {
+		  if 	  (encoder_prev_counter == ENCODER_COUNTER_MAX
+		            &&  encoder_counter == ENCODER_COUNTER_MIN)
+		  {
+			  output++;
+		  }
+		  else if (encoder_prev_counter == ENCODER_COUNTER_MIN
+			        &&  encoder_counter == ENCODER_COUNTER_MAX)
+		  {
+			  output--;
+		  }
+		  else if (encoder_prev_counter < encoder_counter)
+		  {
+			  output++;
+		  }
+		  else
+		  {
+			  output--;
+		  }
 
-	 counter = (TIM3->CNT);
-	 if (counter != prev_counter)
-	 {
-		 if (counter > prev_counter)
-		 {
-			 output++;
-		 }
-		 else
-		 {
-			 output--;
-		 }
-		 prev_counter = counter;
+		  encoder_prev_counter = encoder_counter;
 
-		 sprintf(uart_buffer, "%3u \r\n", output);
-		 HAL_UART_Transmit(&huart1, (uint8_t *)uart_buffer, strlen(uart_buffer), 100);
-	 }
+		  if (output > ENCODER_OUTPUT_MAX)
+		  {
+			  output = ENCODER_OUTPUT_MAX;
+		  }
+		  if (output < ENCODER_OUTPUT_MIN)
+		  {
+			  output = ENCODER_OUTPUT_MIN;
+		  }
+
+		  sprintf(uart_buffer, "Counter: %3u ; Output: %3d \r\n", encoder_counter, output);
+		  HAL_UART_Transmit(&huart1, (uint8_t *)uart_buffer, strlen(uart_buffer), 100);
+
+		  flag_encoder_changed = 0;
+	  }
+//	 counter = (TIM3->CNT);
+//	 if (counter != prev_counter)
+//	 {
+//		 if (counter > prev_counter)
+//		 {
+//			 output++;
+//		 }
+//		 else
+//		 {
+//			 output--;
+//		 }
+//		 prev_counter = counter;
+//
+//		 sprintf(uart_buffer, "%3u \r\n", output);
+//		 HAL_UART_Transmit(&huart1, (uint8_t *)uart_buffer, strlen(uart_buffer), 100);
+//	 }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
