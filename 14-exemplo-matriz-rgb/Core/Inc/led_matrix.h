@@ -15,7 +15,9 @@
 #include "isr.h"
 #include "ws2812.h"
 
-#define LED_MATRIX_NUM_LEDS	4
+#define LED_MATRIX_NUM_LEDS	64
+
+extern DMA_HandleTypeDef hdma_tim3_ch4;	// Declaração necessária para poder utilizar HAL_DMA_Abort(&hdma_tim3_ch4);
 
 extern uint8_t LED_id;
 

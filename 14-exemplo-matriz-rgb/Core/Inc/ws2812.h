@@ -9,7 +9,7 @@
 #define INC_WS2812_H_
 
 #define WS2812_BIT_WIDTH	(60 - 1)
-#define WS2812_BIT_SET 		(40 - 1)
-#define WS2812_BIT_RST 		(20 - 1)
+#define WS2812_BIT_SET 		 40
+#define WS2812_BIT_RST 		 20
 
 #endif /* INC_WS2812_H_ */
