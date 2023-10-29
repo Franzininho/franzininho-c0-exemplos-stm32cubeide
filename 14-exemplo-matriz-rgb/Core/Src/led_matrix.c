@@ -21,7 +21,7 @@ void LED_init (void)
 
 	for (LED_id = 0; LED_id < LED_MATRIX_NUM_LEDS; LED_id++)
 	{
-		LED_set_color(LED_id, 0x00, 0x10, 0x10);
+		LED_set_color(LED_id, 0x10, 0x10, 0x10);
 	}
 }
 
@@ -37,8 +37,6 @@ void LED_write(uint8_t red, uint8_t green, uint8_t blue)
 	int8_t color_bit = 0;
 	uint8_t end_of_message = 0;
 	uint32_t WS2812_color = (red << 8) | (green << 16) | blue;
-
-	uint32_t error;
 
 	for (color_bit = 0; color_bit < 24; color_bit++)
 	{
@@ -56,14 +54,14 @@ void LED_write(uint8_t red, uint8_t green, uint8_t blue)
 		PWM_buffer[color_bit] = 0;
 	}
 
-	HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_1, (uint32_t *)PWM_buffer, 24+50);
-	error = HAL_DMA_GetError(&hdma_tim3_ch1);
+	HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_4, (uint32_t *)PWM_buffer, 24+50);
 
-	while(!flag_data_sent)	// TODO: fazer timout
+	while(!flag_data_sent)	// TODO: fazer timeout
 	{
 		asm("NOP");
 	}
 	flag_data_sent = 0;
+	HAL_DMA_Abort(&hdma_tim3_ch4);
 }
 
 
@@ -101,10 +99,12 @@ void LED_write_matrix (void)
 		index++;
 	}
 
-	HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_1, (uint32_t *)PWM_buffer, index);
+	HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_4, (uint32_t *)PWM_buffer, index);
 	while(!flag_data_sent)
 	{
 		asm("NOP");
 	}
 	flag_data_sent = 0;
+	HAL_DMA_Abort(&hdma_tim3_ch4);	// Investigando por que no C0 o DMA fica ocupado após primeira interrupção.
+									// Solução paliativa foi usar esta função para "destravar" o DMA.
 }

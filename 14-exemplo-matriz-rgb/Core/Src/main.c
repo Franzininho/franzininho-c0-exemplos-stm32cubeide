@@ -98,30 +98,6 @@ int main(void)
 
 	LED_init();
 
-//	RGB_R = 0x33;
-//	RGB_G = 0x55;
-//	RGB_B = 0xAA;
-//
-//	LED_write(RGB_R, RGB_G, RGB_B);
-//
-//	RGB_R = 0xFF;
-//	RGB_G = 0x00;
-//	RGB_B = 0x00;
-//
-//	LED_write(RGB_R, RGB_G, RGB_B);
-//
-//	RGB_R = 0x00;
-//	RGB_G = 0xFF;
-//	RGB_B = 0x00;
-//
-//	LED_write(RGB_R, RGB_G, RGB_B);
-//
-//	RGB_R = 0x00;
-//	RGB_G = 0x00;
-//	RGB_B = 0xFF;
-//
-//	LED_write(RGB_R, RGB_G, RGB_B);
-
 	LED_write_matrix();
 
 	RGB_R = 0x10;

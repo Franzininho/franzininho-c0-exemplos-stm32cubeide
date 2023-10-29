@@ -14,11 +14,8 @@
 
 void RGB_sweep(void);
 
-extern enum RGB_colors {off, red, yellow, green, cyan, blue, purple, white};
-extern enum RGB_colors RGB_state;
+extern enum RGB_colors {off, red, yellow, green, cyan, blue, purple, white} RGB_state;
 
 extern uint16_t RGB_R, RGB_G, RGB_B;
-
-
 
 #endif /* INC_RGB_H_ */

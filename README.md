@@ -20,7 +20,7 @@ Fique a vontade para colaborar na construção dos materiais e códigos. Outros 
 | 11 - Exemplo SPI                  | 🔵      | Controlando um display LCD colorido via SPI                                                                   |
 | 12 - Exemplo Teclado Matricial    | 🔵      | Fazendo a leitura de um teclado matricial com debounce periódico (sem travamento do código)                   |
 | 13 - Exemplo Encoder              | 🟡      | Fazendo a leitura de um encoder rotativo utilizando timer                                                     |
-| 14 - Exemplo Matriz RGB           | 🟡      | Acionando uma matriz de LEDs RGB endereçáveis                                                                 |
+| 14 - Exemplo Matriz RGB           | 🔵      | Acionando uma matriz de LEDs RGB endereçáveis                                                                 |
 | 15 - Exemplo ...                  | 🔴      | ...                                                                                                           |
 
 ### Legenda:
