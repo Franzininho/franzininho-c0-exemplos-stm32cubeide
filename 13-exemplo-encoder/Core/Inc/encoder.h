@@ -18,6 +18,7 @@
 
 extern volatile uint16_t encoder_counter;
 extern uint16_t encoder_prev_counter;
+extern int16_t encoder_output;
 
 extern uint8_t flag_encoder_changed;
 

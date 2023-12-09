@@ -19,17 +19,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include <stdio.h>
-#include <string.h>
-
-#include "encoder.h"
-#include "isr.h"
 
 /* USER CODE END Includes */
 
@@ -73,10 +67,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-
-
-	char uart_buffer[80];
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -97,14 +87,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM3_Init();
-  MX_USART1_UART_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
 
-  sprintf(uart_buffer, "Franzininho C0 - Exemplo 13 - ENCODER. \r\n");
-  HAL_UART_Transmit(&huart1, (uint8_t *)uart_buffer, strlen(uart_buffer), 100);
-
-  HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);	// Inicia leitura do encoder por interrupção do timer
+  EX_Run();
 
   /* USER CODE END 2 */
 
@@ -112,45 +98,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if (flag_encoder_changed)
-	  {
-
-			if 	  (encoder_prev_counter == ENCODER_COUNTER_MAX
-					&&  encoder_counter == ENCODER_COUNTER_MIN)
-			{
-				encoder_output++;
-			}
-			else if (encoder_prev_counter == ENCODER_COUNTER_MIN
-					&&  encoder_counter == ENCODER_COUNTER_MAX)
-			{
-				encoder_output--;
-			}
-			else if (encoder_prev_counter < encoder_counter)
-			{
-				encoder_output++;
-			}
-			else
-			{
-				encoder_output--;
-			}
-
-			encoder_prev_counter = encoder_counter;
-
-			if (encoder_output > ENCODER_OUTPUT_MAX)
-			{
-				encoder_output = ENCODER_OUTPUT_MAX;
-			}
-			if (encoder_output < ENCODER_OUTPUT_MIN)
-			{
-				encoder_output = ENCODER_OUTPUT_MIN;
-			}
-
-
-		  sprintf(uart_buffer, "Counter: %3u ; Output: %3d \r\n", encoder_counter, encoder_output);
-		  HAL_UART_Transmit(&huart1, (uint8_t *)uart_buffer, strlen(uart_buffer), 100);
-
-		  flag_encoder_changed = 0;
-	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
