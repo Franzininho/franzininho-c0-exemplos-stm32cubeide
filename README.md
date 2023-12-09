@@ -22,7 +22,7 @@ Fique a vontade para colaborar na construção dos materiais e códigos. Outros 
 | 13 - Exemplo Encoder              | 🟡      | Fazendo a leitura de um encoder rotativo utilizando timer                                                     |
 | 14 - Exemplo Matriz RGB           | 🔵      | Acionando uma matriz de LEDs RGB endereçáveis                                                                 |
 | 15 - Exemplo ...                  | 🟡      | Acionando um display de 7 segmentos com 6 dígitos                                                             |
-| 16 - Exemplo ...                  | 🔴      | ...                                                                                                           |
+| 16 - Exemplo Display 7 Segmentos  | 🔴      | ...                                                                                                           |
 
 ### Legenda:
 
