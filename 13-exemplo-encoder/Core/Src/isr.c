@@ -13,6 +13,9 @@
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 	encoder_counter = __HAL_TIM_GET_COUNTER(htim);
+
+
+
 	flag_encoder_changed = 1;
 }
 
